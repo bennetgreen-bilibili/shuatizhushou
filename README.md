@@ -23,12 +23,14 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 
 | 科目 | 章节 | 题量 | 覆盖内容 |
 | --- | --- | --- | --- |
-| 药理学 | 16 章基础 + 7 组高频补充 | 641 | 总论与药动学、传出/中枢神经、心血管、内分泌、化学治疗等 |
-| 有机化学 | 15 章 | 188 | 结构基础、烃类、立体化学、卤代烃、醇酚醚、醛酮、羧酸、胺、杂环、糖与波谱 |
-| 分析化学 | 14 章 | 176 | 误差与数据处理、四大滴定、电位分析、UV/IR/NMR/MS、GC/HPLC 等 |
-| **合计** | **52 章** | **1005** | 药学综合考研高频考点 |
+| 药理学 | 47 章 | 723 | 参考书 47 章：总论、传出/中枢神经、心血管、血液/呼吸/消化、内分泌、生殖与骨代谢、化学治疗、免疫与生物技术药物 |
+| 有机化学 | 18 章 | 182 | 参考书 18 章：绪论与化学键、烃类、立体化学、卤代烃、醇酚醚、醛酮醌、羧酸及衍生物、取代羧酸、含氮化合物、氨基酸多肽蛋白质、杂环、糖类、萜类与甾体 |
+| 分析化学 | 23 章 | 206 | 化学分析 10 章 + 仪器分析 13 章：误差与数据处理、重量分析、四大滴定、电位法；UV-Vis、荧光、IR、原子光谱、NMR、MS、波谱综合解析、色谱概论、经典液相、GC、HPLC |
+| **合计** | **88 章** | **1111** | 与参考书目逐章对应 |
 
-题型包含 A 型单选与 X 型多选；药理学基础题库中另保留原文档的 B/C 型配对题。
+- 选择题与概念手册的章节划分一致：第 N 章 = 教材第 N 章（分析化学第 1–10 章为化学分析、第 11–23 章为仪器分析）。
+- 题型包含 A 型单选与 X 型多选；药理学原题库的 B/C 型配对题仍保留。
+- 原「16 章基础 + 7 组高频补充」已拆分并入对应教材章节；原 15/14 章题库也按教材拆分（如"沉淀滴定与重量分析"拆成两章）。
 
 ## 概念手册构成
 
@@ -42,7 +44,7 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 | **合计** | **88** | **1529** | **1211** | **175** | **522** | 参考书章章有对应单元 |
 
 - **单元标题与参考书章标题逐字一致**，第 N 单元 = 教材第 N 章；分析化学第 1–10 单元为化学分析（上册），第 11–23 单元为仪器分析。
-- 选择题库仍按 52 个高频考点章节组织，与概念手册的章节划分不同：**题库用来刷题，手册用来按教材顺序通读**。
+选择题库与概念手册现在统一按参考书章目录组织（88 章 / 88 单元）：**题库用来刷题，手册用来按教材顺序通读**。
 
 ## 页面结构
 
@@ -55,10 +57,9 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 | `concept.html` | 概念手册（三科单元通读、搜索、已背标记、打印） |
 | `assets/quiz.css`、`assets/quiz.js` | 全站共享样式与刷题引擎 |
 | `assets/handbook.css`、`assets/handbook.js` | 概念手册样式与渲染引擎 |
-| `data/pharm.js` | 药理学基础题库（原 16 章 561 题） |
-| `data/pharm-extra.js` | 药理学考研高频补充题 |
-| `data/organic.js` | 有机化学题库 |
-| `data/analytical.js` | 分析化学题库 |
+| `data/pharm.js` | 药理学题库（按参考书 47 章重组，含原题库与高频补充） |
+| `data/organic.js` | 有机化学题库（18 章） |
+| `data/analytical.js` | 分析化学题库（23 章） |
 | `data/handbook-pharm.js`、`data/handbook-organic.js`、`data/handbook-analytical.js` | 概念手册数据（由分章源文件构建） |
 | `参考书目与目录对照.md` | 4 本参考书的章节目录与概念手册单元对应关系（本次对齐依据） |
 | `概念手册.md` | 可打印 / 手机阅读的 Markdown 版（自动生成） |
@@ -119,17 +120,20 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 2. 构建数据文件：
 
    ```bash
+   python scripts/build_data.py --parts data/_parts/pharm --out data/pharm.js --global PHARM_DATA --id-prefix ph
    python scripts/build_data.py --parts data/_parts/organic --out data/organic.js --global ORGANIC_DATA --id-prefix org
+   python scripts/build_data.py --parts data/_parts/analytical --out data/analytical.js --global ANALYTICAL_DATA --id-prefix ana
    ```
 
 3. 校验结构、答案、选项讲解、重复题：
 
    ```bash
-   python scripts/validate.py data/organic.js
+   python scripts/validate.py --legacy data/pharm.js          # 药理学保留原文档 B/C 型题与原始表述
+   python scripts/validate.py data/organic.js data/analytical.js
    python scripts/check_plan.py
    ```
 
-   `data/pharm.js` 为保留原文档格式的旧数据，校验时加 `--legacy`。
+   三科分片源文件在 `data/_parts/pharm`、`data/_parts/organic`、`data/_parts/analytical`，每个文件 = 教材一章（47 / 18 / 23 个）。
 
 4. 修改共享引擎后运行冒烟测试（需要 Node.js）：
 
@@ -170,7 +174,7 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 - 原药理学选择题文档的参考答案存在部分错误，已按教材标准答案修正（详见勘误说明）。
 - 有机化学中结构式以文本表示（如 `CH3CH2OH`、`Ph-OH`），不使用图片。
 - 概念手册为陈述式速查资料，剂量等数值多采用定性与公认值表述，具体用药请以教材和临床为准。
-- 概念手册已按报考院校参考书目逐章重排（药理学 47 章、有机化学 18 章、分析化学 23 单元），旧版 66 单元结构不再使用。
+- 概念手册与选择题库均已按报考院校参考书目逐章重排（药理学 47 章、有机化学 18 章、分析化学 23 章）；旧版 66 单元手册结构与 52 章题库结构不再使用，进度键升级（手册 v2、选择题 v3）。
 - 数据由教材与考研大纲整理，仅供复习参考，不保证覆盖所有院校自命题范围。
 
 ---

@@ -6,8 +6,9 @@
 __pycache__/
 *.pyc
 
-# Local scratch (catalog photos, transcripts)
+# Local scratch (catalog photos, transcripts, quiz migration)
 .tmp_mulu/
+.tmp_quiz/
 
 # OS
 .DS_Store

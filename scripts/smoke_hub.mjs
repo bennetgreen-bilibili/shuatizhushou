@@ -24,7 +24,7 @@ const doc = new Document();
 const ctx = { document: doc, localStorage: new Storage(), console, JSON, Math, Object, Array, String, parseInt };
 ctx.window = ctx;
 vm.createContext(ctx);
-const files = ["data/pharm.js", "data/pharm-extra.js", "data/organic.js", "data/analytical.js",
+const files = ["data/pharm.js", "data/organic.js", "data/analytical.js",
   "data/handbook-pharm.js", "data/handbook-organic.js", "data/handbook-analytical.js"];
 for(const f of files){
   if(!fs.existsSync(f)){ console.error("MISSING " + f); process.exitCode = 1; continue; }
@@ -40,7 +40,11 @@ must(t("total-pharm") !== "—" && t("total-pharm") !== "", "药理学总题数:
 must(t("total-organic") !== "—" && t("total-organic") !== "", "有机化学总题数: " + t("total-organic"));
 must(t("total-analytical") !== "—" && t("total-analytical") !== "", "分析化学总题数: " + t("total-analytical"));
 must(t("grandTotal") !== "—", "首页总题数: " + t("grandTotal"));
-must(String(t("grandChapters")) === "52", "首页章节数: " + t("grandChapters"));
+must(String(t("grandChapters")) === "88", "首页章节数: " + t("grandChapters"));
+must(String(t("total-pharm")) === "723", "药理学 723 题: " + t("total-pharm"));
+must(String(t("total-organic")) === "182", "有机化学 182 题: " + t("total-organic"));
+must(String(t("total-analytical")) === "206", "分析化学 206 题: " + t("total-analytical"));
+must(String(t("grandTotal")) === "1111", "总题数 1111: " + t("grandTotal"));
 const total = Number(t("total-pharm")) + Number(t("total-organic")) + Number(t("total-analytical"));
 must(total === Number(t("grandTotal")), "各科题数之和 = 总题数 (" + total + ")");
 
@@ -55,8 +59,8 @@ must(String(t("learned-handbook")) === "0", "首页概念手册初始已背: " +
 
 // 选择题进度统计
 const p = { wrong: [], stats: {} };
-p.stats["ch01_q01"] = { c: 1, w: 0 };
-ctx.localStorage.setItem("pharm_progress_v2", JSON.stringify(p));
+p.stats["ph01_q01"] = { c: 1, w: 0 };
+ctx.localStorage.setItem("pharm_progress_v3", JSON.stringify(p));
 vm.runInContext(hubJs, ctx);
 must(String(t("answered-pharm")) === "1", "首页读取已答进度: " + t("answered-pharm"));
 must(String(t("rate-pharm")) === "100%", "首页正确率: " + t("rate-pharm"));

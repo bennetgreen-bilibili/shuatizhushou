@@ -34,7 +34,7 @@
     <a class="subject-card" href="pharm.html" style="--card-accent:#2563eb">
       <div class="subject-emoji">💊</div>
       <h2>药理学</h2>
-      <p class="desc">16 章基础题库 + 考研高频补充题，覆盖总论、传出/中枢神经、心血管、内分泌、化疗等。</p>
+      <p class="desc">按参考书 47 章组织：总论、传出/中枢神经、心血管、血液/呼吸/消化、内分泌、生殖与骨代谢、化学治疗、免疫与生物技术药物。</p>
       <div class="mini-stats">
         <div class="mini-stat"><div class="n" id="total-pharm">—</div><div class="l">总题数</div></div>
         <div class="mini-stat"><div class="n" id="answered-pharm">—</div><div class="l">已答</div></div>
@@ -47,7 +47,7 @@
     <a class="subject-card" href="organic.html" style="--card-accent:#0f766e">
       <div class="subject-emoji">🧪</div>
       <h2>有机化学</h2>
-      <p class="desc">15 章高频考点：结构基础、烃类、立体化学、卤代烃、醇酚醚、醛酮、羧酸、胺、杂环、糖与波谱。</p>
+      <p class="desc">按参考书 18 章组织：绪论与化学键、烃类、立体化学、卤代烃、醇酚醚、醛酮醌、羧酸及衍生物、取代羧酸、含氮化合物、氨基酸多肽、杂环、糖类、萜类与甾体。</p>
       <div class="mini-stats">
         <div class="mini-stat"><div class="n" id="total-organic">—</div><div class="l">总题数</div></div>
         <div class="mini-stat"><div class="n" id="answered-organic">—</div><div class="l">已答</div></div>
@@ -60,7 +60,7 @@
     <a class="subject-card" href="analytical.html" style="--card-accent:#7c3aed">
       <div class="subject-emoji">⚗️</div>
       <h2>分析化学</h2>
-      <p class="desc">14 章化学分析 + 仪器分析：误差与数据处理、四大滴定、电位分析、UV/IR/NMR/MS、GC/HPLC 等。</p>
+      <p class="desc">按参考书 23 章组织：化学分析 10 章 + 仪器分析 13 章，误差与数据处理、重量分析、四大滴定、电位法、UV-Vis、荧光、IR、原子光谱、NMR、MS、波谱综合解析、色谱概论、GC/HPLC。</p>
       <div class="mini-stats">
         <div class="mini-stat"><div class="n" id="total-analytical">—</div><div class="l">总题数</div></div>
         <div class="mini-stat"><div class="n" id="answered-analytical">—</div><div class="l">已答</div></div>
@@ -111,7 +111,6 @@
 </div>
 
 <script src="data/pharm.js"></script>
-<script src="data/pharm-extra.js"></script>
 <script src="data/organic.js"></script>
 <script src="data/analytical.js"></script>
 <script src="data/handbook-pharm.js"></script>
@@ -120,9 +119,9 @@
 <script>
 (function(){
   var SUBJECTS = [
-    { id: "pharm", data: ["PHARM_DATA", "PHARM_EXTRA"], key: "pharm_progress_v2" },
-    { id: "organic", data: ["ORGANIC_DATA"], key: "organic_progress_v2" },
-    { id: "analytical", data: ["ANALYTICAL_DATA"], key: "analytical_progress_v2" }
+    { id: "pharm", data: ["PHARM_DATA"], key: "pharm_progress_v3" },
+    { id: "organic", data: ["ORGANIC_DATA"], key: "organic_progress_v3" },
+    { id: "analytical", data: ["ANALYTICAL_DATA"], key: "analytical_progress_v3" }
   ];
   function gather(names){
     var chapters = [];

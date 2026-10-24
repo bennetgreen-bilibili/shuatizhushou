@@ -94,22 +94,21 @@ function must(cond, msg){
 
 const ctx = makeCtx();
 vm.runInContext(fs.readFileSync("data/pharm.js", "utf8"), ctx);
-vm.runInContext(fs.readFileSync("data/pharm-extra.js", "utf8"), ctx);
 ctx.window.QUIZ_CONFIG = {
-  subject: "药理学", storageKey: "pharm_progress_v2", oldWrongKey: "pharm_wrong_qids_v1",
-  dataVar: "PHARM_DATA", extraVar: "PHARM_EXTRA", exportName: "药理学", brand: "#2563eb", brand2: "#1d4ed8"
+  subject: "药理学", storageKey: "pharm_progress_v3", oldWrongKey: "pharm_wrong_qids_v1_bak",
+  dataVar: "PHARM_DATA", exportName: "药理学", brand: "#2563eb", brand2: "#1d4ed8"
 };
 vm.runInContext(fs.readFileSync("assets/quiz.js", "utf8"), ctx);
 const d = ctx.document;
 const el = id => d.getElementById(id);
 
-must(el("qTotal").textContent === 641, "题总数显示为 641（含补充）");
+must(el("qTotal").textContent === 723, "题总数显示为 723");
 const chapOptions = el("chapSelect")._children;
-must(chapOptions.length === 24, "章节下拉为 16+7+全部 = 24 项，实际 " + chapOptions.length);
+must(chapOptions.length === 48, "章节下拉为 47+全部 = 48 项，实际 " + chapOptions.length);
 must(el("stem").textContent.length > 0, "首题题干已渲染: " + el("stem").textContent.slice(0, 20));
 const opts = d.querySelectorAll("#options .opt");
 must(opts.length === 5, "选项渲染 5 个");
-must(el("qMeta").innerHTML.includes("1 / 641"), "进度显示 1 / 641");
+must(el("qMeta").innerHTML.includes("1 / 723"), "进度显示 1 / 723");
 
 // 点击 B 选项 → 提交
 opts[1].click();
@@ -119,20 +118,20 @@ must(el("explain")._classes.has("show"), "提交后显示解析");
 must(el("expList")._children.length >= 4, "解析列出每个选项");
 must(el("nextBtn").style.display === "", "提交后显示下一题按钮");
 const wasWrong = el("wrongNote").textContent.includes("错题");
-if(wasWrong) must(ctx.localStorage.getItem("pharm_progress_v2").includes("ch01_q01"), "答错写入错题本");
+if(wasWrong) must(ctx.localStorage.getItem("pharm_progress_v3").includes("ph01_q01"), "答错写入错题本");
 el("nextBtn").onclick();
-must(el("qMeta").innerHTML.includes("2 / 641"), "下一题后显示 2 / 641");
+must(el("qMeta").innerHTML.includes("2 / 723"), "下一题后显示 2 / 723");
 
 // 章节筛选
 el("chapSelect").value = "0";
 el("chapSelect").onchange();
-must(el("qMeta").innerHTML.includes("1 / 3"), "第一章筛选后 3 题");
+must(el("qMeta").innerHTML.includes("1 / 4"), "第一章筛选后 4 题");
 must(el("qScore").textContent.includes("第一章"), "章节名显示正确");
-// 补充章节（第 17 项，索引 16）
-el("chapSelect").value = "16";
+// 后期章节（第四十五章 抗肿瘤药，索引 44）
+el("chapSelect").value = "44";
 el("chapSelect").onchange();
-must(el("qMeta").innerHTML.includes("1 / 12"), "补充章节第一章 12 题");
-must(el("qScore").textContent.includes("补充"), "补充章节名称显示正确");
+must(el("qMeta").innerHTML.includes("1 / 4"), "第四十五章筛选后 4 题");
+must(el("qScore").textContent.includes("第四十五章"), "章节名称显示正确");
 
 // 错题本为空时的空状态，再切回来（回归原版空状态破坏 DOM 的 bug）
 el("clearWrongBtn").onclick();
