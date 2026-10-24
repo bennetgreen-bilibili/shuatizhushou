@@ -6,6 +6,9 @@
 __pycache__/
 *.pyc
 
+# Local scratch (catalog photos, transcripts)
+.tmp_mulu/
+
 # OS
 .DS_Store
 Thumbs.db

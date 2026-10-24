@@ -80,9 +80,9 @@ for(const f of ["data/handbook-pharm.js", "data/handbook-organic.js", "data/hand
 ctx.HANDBOOK_CONFIG = {
   initial: "pharm",
   subjects: [
-    { id: "pharm", name: "药理学", dataVar: "HANDBOOK_PHARM", key: "handbook_pharm_v1", color: "#2563eb", emoji: "💊" },
-    { id: "organic", name: "有机化学", dataVar: "HANDBOOK_ORGANIC", key: "handbook_organic_v1", color: "#0f766e", emoji: "🧪" },
-    { id: "analytical", name: "分析化学", dataVar: "HANDBOOK_ANALYTICAL", key: "handbook_analytical_v1", color: "#7c3aed", emoji: "⚗️" }
+    { id: "pharm", name: "药理学", dataVar: "HANDBOOK_PHARM", key: "handbook_pharm_v2", color: "#2563eb", emoji: "💊" },
+    { id: "organic", name: "有机化学", dataVar: "HANDBOOK_ORGANIC", key: "handbook_organic_v2", color: "#0f766e", emoji: "🧪" },
+    { id: "analytical", name: "分析化学", dataVar: "HANDBOOK_ANALYTICAL", key: "handbook_analytical_v2", color: "#7c3aed", emoji: "⚗️" }
   ]
 };
 vm.runInContext(fs.readFileSync("assets/handbook.js", "utf8"), ctx);
@@ -93,17 +93,20 @@ const defsOf = d => d.chapters.reduce((n, ch) => n + ch.blocks.filter(b => b.t =
 const totalUnits = ctx.HANDBOOK_PHARM.chapters.length + ctx.HANDBOOK_ORGANIC.chapters.length + ctx.HANDBOOK_ANALYTICAL.chapters.length;
 const totalDefs = defsOf(ctx.HANDBOOK_PHARM) + defsOf(ctx.HANDBOOK_ORGANIC) + defsOf(ctx.HANDBOOK_ANALYTICAL);
 
-must(totalUnits === 66, "三科单元总数 66（实际 " + totalUnits + "）");
+must(totalUnits === 88, "三科单元总数 88（实际 " + totalUnits + "）");
+must(ctx.HANDBOOK_PHARM.chapters.length === 47, "药理学 47 单元（实际 " + ctx.HANDBOOK_PHARM.chapters.length + "）");
+must(ctx.HANDBOOK_ORGANIC.chapters.length === 18, "有机化学 18 单元（实际 " + ctx.HANDBOOK_ORGANIC.chapters.length + "）");
+must(ctx.HANDBOOK_ANALYTICAL.chapters.length === 23, "分析化学 23 单元（实际 " + ctx.HANDBOOK_ANALYTICAL.chapters.length + "）");
 must(el("hbUnits").textContent === totalUnits + " 个单元", "顶部单元统计 " + el("hbUnits").textContent);
 must(el("hbDefs").textContent === totalDefs + " 条概念", "顶部概念统计 " + el("hbDefs").textContent);
 must(app.subject() === "pharm", "默认科目为药理学");
 must(el("subjectTabs").innerHTML.includes("药理学") && el("subjectTabs").innerHTML.includes("分析化学"), "三科切换标签渲染");
-must(el("sideList").innerHTML.includes("药理学绪论"), "侧栏目录渲染");
-must(app.contentHTML().includes("药理学绪论") && app.contentHTML().includes("核心概念"), "正文渲染单元与板块");
+must(el("sideList").innerHTML.includes("绪言"), "侧栏目录渲染");
+must(app.contentHTML().includes("第一单元 绪言") && app.contentHTML().includes("核心概念"), "正文渲染单元与板块");
 must(app.contentHTML().includes("<mark>") === false, "无搜索时不出现高亮");
 
 app.toggleLearned(0);
-const p1 = JSON.parse(ctx.localStorage.getItem("handbook_pharm_v1"));
+const p1 = JSON.parse(ctx.localStorage.getItem("handbook_pharm_v2"));
 must(p1 && p1.learned.length === 1 && p1.learned[0] === 0, "已背标记写入本地进度");
 must(el("hbLearned").textContent === "1", "顶部已背计数 1");
 must(app.isLearned(0) === true, "已背状态可查询");
@@ -116,17 +119,17 @@ must(app.contentHTML().includes("<mark>"), "搜索结果高亮");
 must(app.contentHTML().includes("首过"), "搜索命中相关概念");
 const hits = app.hits();
 const hitUnits = Object.keys(hits).filter(k => hits[k] > 0).length;
-must(hitUnits > 0 && hitUnits < 37, "搜索只保留命中的单元（" + hitUnits + " 个）");
+must(hitUnits > 0 && hitUnits < ctx.HANDBOOK_PHARM.chapters.length, "搜索只保留命中的单元（" + hitUnits + " 个）");
 must(el("searchInfo").textContent.includes("命中"), "搜索信息显示命中数");
 app.setSearch("");
 
 app.selectSubject("organic");
 must(app.subject() === "organic", "切换到有机化学");
 must(el("hbLearned").textContent === "0", "切换科目后已背计数独立");
-must(app.contentHTML().includes("有机化学绪论与结构基础"), "有机化学正文渲染");
+must(app.contentHTML().includes("第一单元 绪论"), "有机化学正文渲染");
 app.selectSubject("analytical");
 must(app.subject() === "analytical", "切换到分析化学");
-must(app.contentHTML().includes("误差与分析数据处理"), "分析化学正文渲染");
+must(app.contentHTML().includes("第一单元 绪论"), "分析化学正文渲染");
 
 console.log("\nhandbook smoke test " + (process.exitCode ? "FAILED" : "OK"));
 process.exit(process.exitCode || 0);

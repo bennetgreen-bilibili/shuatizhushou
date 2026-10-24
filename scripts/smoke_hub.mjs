@@ -47,8 +47,8 @@ must(total === Number(t("grandTotal")), "各科题数之和 = 总题数 (" + tot
 const defsOf = d => d.chapters.reduce((n, ch) => n + ch.blocks.filter(b => b.t === "defs").reduce((m, b) => m + b.items.length, 0), 0);
 const units = ctx.HANDBOOK_PHARM.chapters.length + ctx.HANDBOOK_ORGANIC.chapters.length + ctx.HANDBOOK_ANALYTICAL.chapters.length;
 const defs = defsOf(ctx.HANDBOOK_PHARM) + defsOf(ctx.HANDBOOK_ORGANIC) + defsOf(ctx.HANDBOOK_ANALYTICAL);
-must(units === 66, "概念手册单元数 66（实际 " + units + "）");
-must(String(t("total-handbook")) === "66", "首页概念手册单元: " + t("total-handbook"));
+must(units === 88, "概念手册单元数 88（实际 " + units + "）");
+must(String(t("total-handbook")) === "88", "首页概念手册单元: " + t("total-handbook"));
 must(String(t("defs-handbook")) === String(defs), "首页概念条数: " + t("defs-handbook"));
 must(String(t("grandConcept")) === String(defs), "首页 hero 概念条数: " + t("grandConcept"));
 must(String(t("learned-handbook")) === "0", "首页概念手册初始已背: " + t("learned-handbook"));
@@ -62,7 +62,7 @@ must(String(t("answered-pharm")) === "1", "首页读取已答进度: " + t("answ
 must(String(t("rate-pharm")) === "100%", "首页正确率: " + t("rate-pharm"));
 
 // 概念手册已背统计
-ctx.localStorage.setItem("handbook_pharm_v1", JSON.stringify({ learned: [0, 1] }));
+ctx.localStorage.setItem("handbook_pharm_v2", JSON.stringify({ learned: [0, 1] }));
 vm.runInContext(hubJs, ctx);
 must(String(t("learned-handbook")) === "2", "首页概念手册已背统计: " + t("learned-handbook"));
 process.exit(process.exitCode || 0);
