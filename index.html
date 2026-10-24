@@ -18,7 +18,7 @@
       <a href="pharm.html">药理学</a>
       <a href="organic.html">有机化学</a>
       <a href="analytical.html">分析化学</a>
-      <a href="concept.html">🧠 概念题</a>
+      <a href="concept.html">🧠 概念手册</a>
     </nav>
   </div>
 </header>
@@ -26,8 +26,8 @@
 <div class="hub-wrap">
   <div class="hero">
     <h1>考研药学综合 · 分科刷题</h1>
-    <p>三科选择题库 + 概念题专区，覆盖教材基础与考研高频考点；选择题逐项讲解，概念题先自答再对答案。</p>
-    <div class="tag">选择题 <span id="grandTotal">—</span> 题 · <span id="grandChapters">—</span> 个章节 · 概念题 <span id="grandConcept">—</span> 条 · 已答 <span id="grandAnswered">—</span> 题 · 综合正确率 <span id="grandRate">—</span></div>
+    <p>三科选择题库 + 概念手册，覆盖教材基础与考研高频考点；选择题逐项讲解，概念手册按单元梳理概念、要点、对比表与易混提示。</p>
+    <div class="tag">选择题 <span id="grandTotal">—</span> 题 · <span id="grandChapters">—</span> 个章节 · 概念手册 <span id="grandConcept">—</span> 条概念 · 已答 <span id="grandAnswered">—</span> 题 · 综合正确率 <span id="grandRate">—</span></div>
   </div>
 
   <div class="subjects">
@@ -72,24 +72,25 @@
 
     <a class="subject-card" href="concept.html" style="--card-accent:#b45309">
       <div class="subject-emoji">🧠</div>
-      <h2>概念题专区</h2>
-      <p class="desc">名词解释 · 简答自测 · 概念辨析：三科核心概念，先自答再对答案，不熟自动进复习清单。</p>
+      <h2>概念手册</h2>
+      <p class="desc">三科 66 个单元：核心概念 · 要点梳理 · 分类对比表 · 易混提示；不刷题，直接背诵、通读与搜索速查。</p>
       <div class="mini-stats">
-        <div class="mini-stat"><div class="n" id="total-concept">—</div><div class="l">总条数</div></div>
-        <div class="mini-stat"><div class="n" id="done-concept">—</div><div class="l">已练</div></div>
-        <div class="mini-stat"><div class="n" id="weak-concept">—</div><div class="l">不熟</div></div>
+        <div class="mini-stat"><div class="n" id="total-handbook">—</div><div class="l">单元</div></div>
+        <div class="mini-stat"><div class="n" id="defs-handbook">—</div><div class="l">概念条数</div></div>
+        <div class="mini-stat"><div class="n" id="learned-handbook">—</div><div class="l">已背单元</div></div>
       </div>
-      <div class="mini-bar"><div id="bar-concept"></div></div>
-      <div class="go">开始自测 →</div>
+      <div class="mini-bar"><div id="bar-handbook"></div></div>
+      <div class="go">开始通读 →</div>
     </a>
   </div>
 
   <div class="resources">
     <h3>复习资料与说明</h3>
     <ul>
-      <li><a href="药理学简答题整理.docx">药理学简答题整理.docx</a> <span class="meta">— 简答 / 名词解释 / 填空题（含答案；部分已整理进概念题专区）</span></li>
-      <li><a href="concept.html">概念题专区</a> <span class="meta">— 三科名词解释 / 简答 / 概念辨析自测</span></li>
-      <li><a href="概念题速记清单.md">概念题速记清单.md</a> <span class="meta">— 260 条概念可打印背诵清单（自动生成）</span></li>
+      <li><a href="概念手册.docx">概念手册.docx</a> <span class="meta">— Word 打印版，适合打印或平板阅读（自动生成）</span></li>
+      <li><a href="概念手册.md">概念手册.md</a> <span class="meta">— Markdown 版，可直接在 GitHub / 手机备忘录阅读</span></li>
+      <li><a href="concept.html">概念手册（网页版）</a> <span class="meta">— 概念 / 要点 / 对比表 / 易混提示，可按单元通读、搜索速查</span></li>
+      <li><a href="药理学简答题整理.docx">药理学简答题整理.docx</a> <span class="meta">— 简答 / 名词解释 / 填空题（含答案；已系统整理进概念手册）</span></li>
       <li><a href="药理学选择题勘误说明.md">药理学选择题勘误说明.md</a> <span class="meta">— 原题库答案勘误与修正说明</span></li>
       <li><a href="README.md">README.md</a> <span class="meta">— 使用说明、进度备份与部署方法</span></li>
       <li><a href="https://github.com/bennetgreen-bilibili/shuatizhushou" target="_blank" rel="noopener">GitHub 仓库</a> <span class="meta">— 源码 / 在线访问（GitHub Pages）</span></li>
@@ -99,6 +100,7 @@
       <li>按 <b>章节 / 题型 / 进度</b> 筛选，勾选「随机」可打乱顺序；答错的题自动进入<b>错题本</b>，可「只看错题」集中复习。</li>
       <li>答题后用 <kbd>Enter</kbd> 进入下一题，<kbd>A</kbd>–<kbd>E</kbd> 直接选择选项，刷题更快。</li>
       <li>进度保存在本机浏览器；换设备前用「导出进度」备份 JSON，到新设备「导入进度」即可恢复。三科进度分别保存，互不影响。</li>
+      <li>需要系统过概念时打开<b>概念手册</b>：左侧单元目录跳转，搜索框支持多关键词（空格分隔），看完一个单元勾选「已背完」记录进度。</li>
     </ul>
   </div>
 
@@ -112,6 +114,9 @@
 <script src="data/pharm-extra.js"></script>
 <script src="data/organic.js"></script>
 <script src="data/analytical.js"></script>
+<script src="data/handbook-pharm.js"></script>
+<script src="data/handbook-organic.js"></script>
+<script src="data/handbook-analytical.js"></script>
 <script>
 (function(){
   var SUBJECTS = [
@@ -161,31 +166,32 @@
     grand.attempts += st.attempts; grand.correct += st.correct;
   });
   setText("grandTotal", grand.total || "—");
-  var CONCEPT = [
-    { data: "CONCEPT_PHARM", key: "concept_pharm_v1" },
-    { data: "CONCEPT_ORGANIC", key: "concept_organic_v1" },
-    { data: "CONCEPT_ANALYTICAL", key: "concept_analytical_v1" }
+  var HANDBOOK = [
+    { data: "HANDBOOK_PHARM", key: "handbook_pharm_v1" },
+    { data: "HANDBOOK_ORGANIC", key: "handbook_organic_v1" },
+    { data: "HANDBOOK_ANALYTICAL", key: "handbook_analytical_v1" }
   ];
-  var cTotal = 0, cDone = 0, cWeak = 0;
-  CONCEPT.forEach(function(s){
+  var hbUnits = 0, hbDefs = 0, hbLearned = 0;
+  HANDBOOK.forEach(function(s){
     var d = window[s.data];
     if(!d || !d.chapters) return;
-    var ids = {};
+    hbUnits += d.chapters.length;
     d.chapters.forEach(function(ch){
-      (ch.items || []).forEach(function(it){ cTotal++; ids[it.id] = 1; });
+      (ch.blocks || []).forEach(function(b){
+        if(b.t === "defs") hbDefs += (b.items || []).length;
+      });
     });
     try{
       var p = JSON.parse(localStorage.getItem(s.key) || "null");
-      if(p && p.stats){ Object.keys(p.stats).forEach(function(id){ if(ids[id]) cDone++; }); }
-      if(p && Array.isArray(p.weak)){ p.weak.forEach(function(id){ if(ids[id]) cWeak++; }); }
+      if(p && Array.isArray(p.learned)) hbLearned += p.learned.length;
     }catch(e){}
   });
-  setText("grandConcept", cTotal || "—");
-  setText("total-concept", cTotal || "—");
-  setText("done-concept", cDone);
-  setText("weak-concept", cWeak);
-  var cbar = document.getElementById("bar-concept");
-  if(cbar) cbar.style.width = (cTotal ? Math.round(cDone / cTotal * 100) : 0) + "%";
+  setText("grandConcept", hbDefs || "—");
+  setText("total-handbook", hbUnits || "—");
+  setText("defs-handbook", hbDefs || "—");
+  setText("learned-handbook", hbLearned);
+  var hbar = document.getElementById("bar-handbook");
+  if(hbar) hbar.style.width = (hbUnits ? Math.round(hbLearned / hbUnits * 100) : 0) + "%";
   var chapCount = 0;
   SUBJECTS.forEach(function(s){ chapCount += gather(s.data).length; });
   setText("grandChapters", chapCount || "—");

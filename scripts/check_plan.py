@@ -60,11 +60,11 @@ PLANS = {
 }
 
 
-CONCEPT_LINKS = {
-    "data/concept-pharm.js": ["data/pharm.js", "data/pharm-extra.js"],
-    "data/concept-organic.js": ["data/organic.js"],
-    "data/concept-analytical.js": ["data/analytical.js"],
-}
+HANDBOOKS = [
+    ("data/handbook-pharm.js", "pharm"),
+    ("data/handbook-organic.js", "organic"),
+    ("data/handbook-analytical.js", "analytical"),
+]
 
 
 def load(path):
@@ -78,36 +78,49 @@ def load(path):
     return json.loads(body)
 
 
-def check_concept(failed):
-    for concept_path, source_paths in CONCEPT_LINKS.items():
-        if not Path(concept_path).exists():
-            print("[SKIP] %s not found" % concept_path)
+def check_handbook(failed):
+    plan_path = Path("data/_parts/handbook/_chapters.json")
+    if not plan_path.exists():
+        print("[SKIP] %s not found" % plan_path)
+        return failed
+    plan = json.loads(plan_path.read_text(encoding="utf-8-sig"))
+    for hb_path, subject in HANDBOOKS:
+        if not Path(hb_path).exists():
+            print("[SKIP] %s not found" % hb_path)
             continue
-        expected = []
-        for src in source_paths:
-            for ch in load(src).get("chapters") or []:
-                expected.append(ch.get("title"))
-        data = load(concept_path)
-        chapters = data.get("chapters") or []
-        print("[%s] chapters: %d (expected %d)" % (concept_path, len(chapters), len(expected)))
+        expected = plan.get(subject) or []
+        chapters = load(hb_path).get("chapters") or []
+        print("[%s] units: %d (expected %d)" % (hb_path, len(chapters), len(expected)))
         if len(chapters) != len(expected):
             failed = True
-            print("  ERROR: chapter count mismatch")
+            print("  ERROR: unit count mismatch")
         for i, title in enumerate(expected):
             if i >= len(chapters):
-                print("  ERROR: missing chapter %d: %s" % (i + 1, title))
+                print("  ERROR: missing unit %d: %s" % (i + 1, title))
                 failed = True
                 continue
-            actual_title = chapters[i].get("title")
-            count = len(chapters[i].get("items") or [])
+            ch = chapters[i]
+            actual_title = ch.get("title")
+            blocks = ch.get("blocks") or []
+            defs = sum(len(b.get("items") or []) for b in blocks if b.get("t") == "defs")
+            points = sum(len(b.get("items") or []) for b in blocks if b.get("t") == "points")
+            tables = sum(1 for b in blocks if b.get("t") == "table")
+            notes = sum(len(b.get("items") or []) for b in blocks if b.get("t") == "notes")
             status = "ok"
             if actual_title != title:
                 status = "TITLE MISMATCH"
                 failed = True
-            if count < 5:
-                status = "COUNT LOW %d<5" % count
+            if defs < 10:
+                status = "DEFS LOW %d<10" % defs
                 failed = True
-            print("  %s %-2d %s (%d/5)" % ("ok" if status == "ok" else "FAIL", i + 1, actual_title, count))
+            if points < 8:
+                status = "POINTS LOW %d<8" % points
+                failed = True
+            if tables < 1 or notes < 3:
+                status = "BLOCK LOW tables=%d notes=%d" % (tables, notes)
+                failed = True
+            print("  %s %-2d %s (defs=%d points=%d tables=%d notes=%d)" % (
+                "ok" if status == "ok" else "FAIL", i + 1, actual_title, defs, points, tables, notes))
     return failed
 
 
@@ -139,7 +152,7 @@ def main():
                 status = ("COUNT LOW %d<%d" % (count, min_count))
                 failed = True
             print("  %s %-2d %s (%d/%d)" % ("ok" if status == "ok" else "FAIL", i + 1, actual_title, count, min_count))
-    failed = check_concept(failed)
+    failed = check_handbook(failed)
     print()
     print("PLAN CHECK " + ("FAILED" if failed else "OK"))
     return 1 if failed else 0

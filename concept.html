@@ -3,116 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>概念题 · 考研药学综合</title>
+<title>概念手册 · 考研药学综合</title>
 <link rel="stylesheet" href="assets/quiz.css">
-<link rel="stylesheet" href="assets/concept.css">
-<style>:root{--brand:#2563eb;--brand-2:#1d4ed8}</style>
+<link rel="stylesheet" href="assets/handbook.css">
 </head>
 <body>
 <header class="top">
   <div class="top-inner">
     <div>
-      <h1>概念题专区</h1>
-      <div class="sub">名词解释 · 简答自测 · 概念辨析<span class="pill">共 <span id="cTotal">0</span> 条</span><span class="pill">已练 <span id="cDone">0</span> 条</span><span class="pill" id="weakPill" style="display:none">🤔 不熟 <span id="cWeak">0</span></span></div>
+      <h1>概念手册</h1>
+      <div class="sub">三科核心概念 · 要点梳理 · 对比表 · 易混提示<span class="pill">可直接背诵 / 速查</span></div>
     </div>
     <nav class="subject-nav">
       <a href="index.html">🏠 首页</a>
       <a href="pharm.html">药理学</a>
       <a href="organic.html">有机化学</a>
       <a href="analytical.html">分析化学</a>
-      <a href="concept.html" class="active">🧠 概念题</a>
+      <a href="concept.html" class="active">🧠 概念手册</a>
     </nav>
   </div>
 </header>
-<div class="wrap">
+
+<div class="hb-wrap">
+  <div class="hb-hero">
+    <h1>概念手册</h1>
+    <p>不是刷题，是把三科概念一次讲全：核心名词解释、要点梳理、分类对比表、易混与记忆提示。按单元通读或搜索速查。</p>
+    <div class="hb-tags">
+      <span class="hb-tag" id="hbUnits">—</span>
+      <span class="hb-tag" id="hbDefs">—</span>
+      <span class="hb-tag">已背 <b id="hbLearned">0</b> 个单元</span>
+      <a class="hb-tag hb-tag-link" href="概念手册.md">📄 可打印版（Markdown）</a>
+      <a class="hb-tag hb-tag-link" href="概念手册.docx">📘 Word 打印版</a>
+    </div>
+  </div>
 
   <div class="subject-tabs" id="subjectTabs"></div>
 
-  <div class="controls" id="controls">
-    <label>章节：
-      <select id="chapSelect"></select>
-    </label>
-    <label>题型：
-      <select id="typeSelect">
-        <option value="all">全部题型</option>
-        <option value="term">名词解释</option>
-        <option value="qa">简答题</option>
-        <option value="judge">概念辨析</option>
-      </select>
-    </label>
-    <label>进度：
-      <select id="progSelect">
-        <option value="all">全部进度</option>
-        <option value="unseen">只看未练</option>
-        <option value="done">只看已练</option>
-      </select>
-    </label>
-    <label><input type="checkbox" id="shuffleChk"> 随机</label>
-    <label><input type="checkbox" id="weakChk"> 🤔 只看不熟</label>
-    <label title="答对 / 记住后自动移出不熟清单"><input type="checkbox" id="autoRemoveChk" checked> 答对移出不熟</label>
-    <button id="exportBtn" class="btn-ghost">导出进度</button>
-    <button id="importBtn" class="btn-ghost">导入进度</button>
-    <button id="clearWeakBtn" class="btn-ghost btn-danger">清空不熟</button>
-    <button id="restartBtn" class="btn-ghost">重新开始</button>
-    <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+  <div class="hb-toolbar">
+    <input type="search" id="searchInput" placeholder="搜索概念 / 关键词，如：首过效应、HPLC、立体化学（空格分隔多个关键词）">
+    <label><input type="checkbox" id="hideLearnedChk"> 隐藏已背完单元</label>
+    <button id="printBtn" class="hb-btn">🖨 打印 / 存为 PDF</button>
+    <span class="hb-search-info" id="searchInfo"></span>
   </div>
 
-  <div class="progress"><div id="progressBar"></div></div>
-
-  <div id="emptyCard" class="card empty" style="display:none"></div>
-
-  <div id="conceptCard" class="card">
-    <div class="q-head">
-      <div class="q-meta" id="qMeta"></div>
-      <div class="q-meta" id="qWhere"></div>
-    </div>
-    <div class="stem" id="stem"></div>
-    <div class="term-hint" id="hintBox" style="display:none"></div>
-    <div class="judge-row" id="judgeRow" style="display:none"></div>
-    <div class="actions" id="actions" style="margin-top:14px">
-      <button id="showBtn" class="btn-primary">显示答案</button>
-      <button id="hintBtn" class="btn-ghost">💡 提示</button>
-      <button id="nextBtn" style="display:none">下一题 →</button>
-    </div>
-    <div class="hint" id="kbHint"></div>
-    <div class="eval-row" id="evalRow" style="display:none">
-      <button id="knowBtn" class="know">✅ 记住了</button>
-      <button id="againBtn" class="again">🤔 不熟</button>
-    </div>
-    <div class="explain" id="explain">
-      <div class="verdict" id="verdict"></div>
-      <div class="answer" id="answer"></div>
-      <div class="why-box" id="whyBox" style="display:none"></div>
-    </div>
+  <div class="hb-layout">
+    <aside class="hb-side" id="hbSide">
+      <div class="hb-side-head">单元目录 <span id="sideProgress" class="hb-side-progress"></span></div>
+      <ol id="sideList" class="hb-side-list"></ol>
+    </aside>
+    <main id="content" class="hb-content"></main>
   </div>
 
-  <div id="summaryCard" class="card summary">
-    <h2 style="margin-top:0">本轮概念自测总结</h2>
-    <div class="stat-row">
-      <div class="stat"><div class="n" id="sTotal">0</div><div class="l">本轮条数</div></div>
-      <div class="stat"><div class="n" id="sKnow">0</div><div class="l">记住 / 答对</div></div>
-      <div class="stat"><div class="n" id="sWeak">0</div><div class="l">不熟 / 答错</div></div>
-      <div class="stat"><div class="n" id="sRate">0%</div><div class="l">掌握率</div></div>
-    </div>
-    <button id="againRestart" class="btn-primary" style="font-size:15px;padding:10px 18px;border-radius:10px;border:1px solid transparent;cursor:pointer">再来一轮</button>
+  <div class="hb-foot">
+    内容依据人卫版教材与考研大纲整理，仅供复习参考 · 进度保存在本机浏览器（按科目分别记录）·
+    <a href="index.html">返回首页</a> · 有疑问或想补充的内容可反馈
   </div>
-
-  <div class="foot">数据来源：药理学、有机化学、分析化学教材核心概念与考研高频考点 · 名词解释 / 简答 / 概念辨析由程序整理，仅供复习参考<br>进度按科目保存在本机浏览器；用「导出进度」可备份到文件，换设备后用「导入进度」恢复 · <a href="index.html" style="color:var(--brand)">返回首页</a></div>
 </div>
 
-<script src="data/concept-pharm.js"></script>
-<script src="data/concept-organic.js"></script>
-<script src="data/concept-analytical.js"></script>
+<script src="data/handbook-pharm.js"></script>
+<script src="data/handbook-organic.js"></script>
+<script src="data/handbook-analytical.js"></script>
 <script>
-window.CONCEPT_CONFIG = {
+window.HANDBOOK_CONFIG = {
   initial: "pharm",
   subjects: [
-    { id: "pharm", name: "药理学", dataVar: "CONCEPT_PHARM", key: "concept_pharm_v1", color: "#2563eb", color2: "#1d4ed8", emoji: "💊" },
-    { id: "organic", name: "有机化学", dataVar: "CONCEPT_ORGANIC", key: "concept_organic_v1", color: "#0f766e", color2: "#0d9488", emoji: "🧪" },
-    { id: "analytical", name: "分析化学", dataVar: "CONCEPT_ANALYTICAL", key: "concept_analytical_v1", color: "#7c3aed", color2: "#6d28d9", emoji: "⚗️" }
+    { id: "pharm", name: "药理学", dataVar: "HANDBOOK_PHARM", key: "handbook_pharm_v1", color: "#2563eb", color2: "#1d4ed8", emoji: "💊" },
+    { id: "organic", name: "有机化学", dataVar: "HANDBOOK_ORGANIC", key: "handbook_organic_v1", color: "#0f766e", color2: "#0d9488", emoji: "🧪" },
+    { id: "analytical", name: "分析化学", dataVar: "HANDBOOK_ANALYTICAL", key: "handbook_analytical_v1", color: "#7c3aed", color2: "#6d28d9", emoji: "⚗️" }
   ]
 };
 </script>
-<script src="assets/concept.js"></script>
+<script src="assets/handbook.js"></script>
 </body>
 </html>

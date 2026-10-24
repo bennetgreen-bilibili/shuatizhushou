@@ -1,9 +1,9 @@
 # 考研药学综合刷题
 
-药理学、有机化学、分析化学三科刷题网页，基于教材与考研大纲整理，可直接在线使用或本地离线打开。
+药理学、有机化学、分析化学三科刷题网页 + 三科概念手册，基于教材与考研大纲整理，可直接在线使用或本地离线打开。
 
 - 三科分页面：**药理学**、**有机化学**、**分析化学**，首页统一入口
-- **概念题专区**：三科名词解释 / 简答自测 / 概念辨析，先自答再对答案，不熟自动进复习清单
+- **概念手册**：三科 **66 个单元 / 1060 条核心概念 / 877 条要点 / 131 个对比表 / 383 条易混提示**，不是题目，而是按单元整理、可直接背诵与速查的体系化资料，支持搜索、已背标记、打印
 - 每题附 **答案、题干解析，以及每个选项的讲解**
 - 支持按章节 / 题型 / 进度筛选、随机顺序、即时判分、**错题本**、做题进度统计
 - 进度保存在浏览器本地，支持**导出 / 导入 JSON** 备份与跨设备恢复
@@ -28,39 +28,44 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 | 分析化学 | 14 章 | 176 | 误差与数据处理、四大滴定、电位分析、UV/IR/NMR/MS、GC/HPLC 等 |
 | **合计** | **52 章** | **1005** | 药学综合考研高频考点 |
 
-概念题专区（独立于选择题，单独记录进度）：
-
-| 科目 | 章节 | 概念条数 | 构成 |
-| --- | --- | --- | --- |
-| 药理学 | 23 章（16 章基础 + 7 组补充） | 115 | 每章 3 名词解释 + 1 简答 + 1 辨析 |
-| 有机化学 | 15 章 | 75 | 同上 |
-| 分析化学 | 14 章 | 70 | 同上 |
-| **合计** | **52 章** | **260** | 名词解释 156 + 简答 52 + 概念辨析 52 |
-
 题型包含 A 型单选与 X 型多选；药理学基础题库中另保留原文档的 B/C 型配对题。
+
+## 概念手册构成
+
+概念手册独立于选择题，按「单元 → 核心概念 / 要点梳理 / 分类对比表 / 易混与记忆」组织，覆盖教材主干而不是零散考点：
+
+| 科目 | 单元 | 核心概念 | 要点 | 对比表 | 易混提示 | 覆盖内容 |
+| --- | --- | --- | --- | --- | --- | --- |
+| 药理学 | 37 | 580 | 512 | 73 | 223 | 总论、传出神经、中枢神经、心血管、内分泌、化学治疗、血液/消化/呼吸系统 |
+| 有机化学 | 15 | 249 | 191 | 30 | 90 | 结构基础、烃类、立体化学、卤代烃、醇酚醚、醛酮醌、羧酸衍生物、胺、杂环、糖/氨基酸、天然产物与波谱 |
+| 分析化学 | 14 | 231 | 174 | 28 | 70 | 误差与统计、四大滴定、电位分析、UV/IR/NMR/MS、GC/HPLC、荧光/原子吸收/平面色谱 |
+| **合计** | **66** | **1060** | **877** | **131** | **383** | 教材主干概念全覆盖 |
+
+药理学概念手册比选择题的 23 个章节更完整（拆出抗心律失常、抗心绞痛、抗高血压、利尿、抗心衰、调血脂、激素、各类抗菌药、抗肿瘤、血液/消化/呼吸等单元），便于系统通读而不是只补考点。
 
 ## 页面结构
 
 | 文件 | 用途 |
 | --- | --- |
-| `index.html` | 首页（三科入口、总体进度、复习资料链接） |
+| `index.html` | 首页（三科入口、总体进度、概念手册入口、复习资料链接） |
 | `pharm.html` | 药理学刷题 |
 | `organic.html` | 有机化学刷题 |
 | `analytical.html` | 分析化学刷题 |
-| `concept.html` | 概念题专区（三科名词解释 / 简答 / 概念辨析自测） |
+| `concept.html` | 概念手册（三科单元通读、搜索、已背标记、打印） |
 | `assets/quiz.css`、`assets/quiz.js` | 全站共享样式与刷题引擎 |
-| `assets/concept.css`、`assets/concept.js` | 概念题专区样式与自测引擎 |
+| `assets/handbook.css`、`assets/handbook.js` | 概念手册样式与渲染引擎 |
 | `data/pharm.js` | 药理学基础题库（原 16 章 561 题） |
 | `data/pharm-extra.js` | 药理学考研高频补充题 |
 | `data/organic.js` | 有机化学题库 |
 | `data/analytical.js` | 分析化学题库 |
-| `data/concept-pharm.js`、`data/concept-organic.js`、`data/concept-analytical.js` | 概念题数据（名词解释 / 简答 / 辨析） |
-| `药理学简答题整理.docx` | 简答 / 问答、名词解释、填空题（含答案，未做进网页） |
+| `data/handbook-pharm.js`、`data/handbook-organic.js`、`data/handbook-analytical.js` | 概念手册数据（由分章源文件构建） |
+| `概念手册.md` | 可打印 / 手机阅读的 Markdown 版（自动生成） |
+| `概念手册.docx` | Word 打印版（自动生成，A4 排版、表格可直接打印） |
+| `药理学简答题整理.docx` | 原简答 / 名词解释 / 填空题（已系统整理进概念手册） |
 | `药理学选择题勘误说明.md` | 原题库答案勘误与修正说明 |
-| `概念题速记清单.md` | 260 条概念的可打印背诵清单（由 `scripts/export_concept_md.py` 自动生成） |
-| `scripts/` | 题库构建、校验、冒烟测试脚本（改题时用） |
-| `data/_parts/` | 分章题目源文件（重建题库用；可直接编辑） |
-| `data/_parts/concept/` | 概念题分章源文件（重建概念题数据用） |
+| `scripts/` | 题库构建、校验、导出、冒烟测试脚本（改内容时用） |
+| `data/_parts/` | 分章选择题源文件（重建题库用；可直接编辑） |
+| `data/_parts/handbook/` | 概念手册分单元源文件（重建手册用；格式说明见该目录 README） |
 
 ## 使用说明
 
@@ -75,15 +80,15 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 1. 在网页里点「**导出进度**」，下载 `科目进度_日期.json`；
 2. 换设备后点「**导入进度**」，选择该文件即可恢复（导入时会自动过滤非本页面的题目）。
 
-## 概念题专区怎么用
+## 概念手册怎么用
 
-1. 首页点「🧠 概念题」卡片，或任意页面顶部导航「概念题」。
-2. 顶部切换科目（药理学 / 有机化学 / 分析化学），再按 **章节 / 题型 / 进度** 筛选。
-3. 名词解释、简答题：先自己回忆，点「显示答案」核对要点，再点 **✅ 记住了 / 🤔 不熟**；不熟的条目自动进入复习清单。
-4. 概念辨析：直接选 **✔ 正确 / ✘ 错误**，系统即时判分并给出解析，答错自动进不熟清单。
-5. 勾选「🤔 只看不熟」可集中复习；勾选「答对移出不熟」后，答对或自评记住会自动移出。
-6. 三科概念进度分别保存在浏览器本地，可「导出进度 / 导入进度」备份恢复。
-7. 快捷键：`Enter` / `空格` 显示答案，`1` 记住了 / 正确，`2` 不熟 / 错误，`H` 提示。
+1. 首页点「🧠 概念手册」卡片，或任意页面顶部导航「概念手册」。
+2. 顶部切换科目（药理学 / 有机化学 / 分析化学），左侧目录可跳到任意单元。
+3. 每个单元固定四块：**核心概念**（名词解释式，可直接背）→ **要点梳理**（分类、机制、应用、不良反应）→ **分类对比表**（横向比较）→ **易混与记忆**（易混点、口诀、陷阱）。
+4. 搜索框支持多个关键词（空格分隔），如 `首过 生物利用度`、`HPLC 检测器`；命中的单元会保留并高亮。
+5. 通读完一个单元勾选「已背完」；勾选「隐藏已背完单元」可只看没过的部分。进度按科目保存在本机浏览器（`handbook_<科目>_v1`）。
+6. 需要打印或离线背：用页面右上「🖨 打印 / 存为 PDF」，或直接打开 `概念手册.docx` / `概念手册.md`。
+7. 快捷键：`/` 聚焦搜索框，`Esc` 清空搜索。
 
 ## 新增 / 修改题目
 
@@ -122,6 +127,8 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
    python scripts/check_plan.py
    ```
 
+   `data/pharm.js` 为保留原文档格式的旧数据，校验时加 `--legacy`。
+
 4. 修改共享引擎后运行冒烟测试（需要 Node.js）：
 
    ```bash
@@ -130,10 +137,37 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
    node scripts/smoke_hub.mjs       # 首页统计
    ```
 
+## 新增 / 修改概念手册
+
+1. 编辑 `data/_parts/handbook/<科目>/NN.json`，格式与硬性要求见 `data/_parts/handbook/README.md`，可参考样例 `data/_parts/handbook/pharm/01.json`；单元标题以 `data/_parts/handbook/_chapters.json` 为准。
+2. 校验（可只校验部分单元）：
+
+   ```bash
+   python scripts/validate_handbook.py
+   python scripts/validate_handbook.py --subject pharm --only 01,02
+   ```
+
+3. 重新构建三科数据：
+
+   ```bash
+   python scripts/build_handbook.py --parts data/_parts/handbook/pharm --out data/handbook-pharm.js --global HANDBOOK_PHARM
+   python scripts/build_handbook.py --parts data/_parts/handbook/organic --out data/handbook-organic.js --global HANDBOOK_ORGANIC
+   python scripts/build_handbook.py --parts data/_parts/handbook/analytical --out data/handbook-analytical.js --global HANDBOOK_ANALYTICAL
+   ```
+
+4. 重新生成打印版（Markdown / Word）并跑冒烟测试：
+
+   ```bash
+   python scripts/export_handbook_md.py
+   python scripts/export_handbook_docx.py
+   node scripts/smoke_handbook.mjs
+   ```
+
 ## 说明
 
 - 原药理学选择题文档的参考答案存在部分错误，已按教材标准答案修正（详见勘误说明）。
 - 有机化学中结构式以文本表示（如 `CH3CH2OH`、`Ph-OH`），不使用图片。
+- 概念手册为陈述式速查资料，剂量等数值多采用定性与公认值表述，具体用药请以教材和临床为准。
 - 数据由教材与考研大纲整理，仅供复习参考，不保证覆盖所有院校自命题范围。
 
 ---
@@ -144,4 +178,4 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 2. 把本目录下的全部文件上传到仓库根目录（含 `assets/`、`data/`）；
 3. 仓库 → **Settings** → **Pages**；
 4. `Source` 选择 `Deploy from a branch`，分支选 `main`，目录选 `/ (root)`，点 **Save**；
-5. 等待 1 分钟左右，页面会显示访问地址 `https://<你的用户名>.github.io/<仓库名>/`。
+5. 等待 1 分钟左右，页面会显示访问地址 `https://<你的用户名>.github.io/<仓库名/>`。
