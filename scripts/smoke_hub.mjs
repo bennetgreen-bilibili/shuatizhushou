@@ -24,7 +24,7 @@ const doc = new Document();
 const ctx = { document: doc, localStorage: new Storage(), console, JSON, Math, Object, Array, String, parseInt };
 ctx.window = ctx;
 vm.createContext(ctx);
-for(const f of ["data/pharm.js", "data/pharm-extra.js", "data/organic.js", "data/analytical.js"]){
+for(const f of ["data/pharm.js", "data/pharm-extra.js", "data/organic.js", "data/analytical.js", "data/concept-pharm.js", "data/concept-organic.js", "data/concept-analytical.js"]){
   if(!fs.existsSync(f)){ console.error("MISSING " + f); process.exitCode = 1; continue; }
   vm.runInContext(fs.readFileSync(f, "utf8"), ctx);
 }
@@ -41,6 +41,9 @@ must(t("grandTotal") !== "—", "首页总题数: " + t("grandTotal"));
 must(String(t("grandChapters")) === "52", "首页章节数: " + t("grandChapters"));
 const total = Number(t("total-pharm")) + Number(t("total-organic")) + Number(t("total-analytical"));
 must(total === Number(t("grandTotal")), "各科题数之和 = 总题数 (" + total + ")");
+must(String(t("grandConcept")) === "260", "首页概念题总条数: " + t("grandConcept"));
+must(String(t("total-concept")) === "260", "首页概念卡片总条数: " + t("total-concept"));
+must(String(t("done-concept")) === "0", "首页概念题初始已练: " + t("done-concept"));
 // 进度统计：写入一条 pharm 进度，重新执行脚本
 const p = { wrong: [], stats: {} };
 p.stats["ch01_q01"] = { c: 1, w: 0 };
@@ -48,4 +51,8 @@ ctx.localStorage.setItem("pharm_progress_v2", JSON.stringify(p));
 vm.runInContext(hubJs, ctx);
 must(String(t("answered-pharm")) === "1", "首页读取已答进度: " + t("answered-pharm"));
 must(String(t("rate-pharm")) === "100%", "首页正确率: " + t("rate-pharm"));
+ctx.localStorage.setItem("concept_pharm_v1", JSON.stringify({ weak: ["phc01i02"], stats: { "phc01i01": { k: 1, u: 0 } } }));
+vm.runInContext(hubJs, ctx);
+must(String(t("done-concept")) === "1", "首页概念题已练统计: " + t("done-concept"));
+must(String(t("weak-concept")) === "1", "首页概念题不熟统计: " + t("weak-concept"));
 process.exit(process.exitCode || 0);
