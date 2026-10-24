@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分析化学刷题 · 考研药学综合</title>
+<link rel="stylesheet" href="assets/quiz.css">
+<style>:root{--brand:#7c3aed;--brand-2:#6d28d9}</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div>
+      <h1>分析化学选择题训练</h1>
+      <div class="sub">考研药学综合 · 14 章化学分析 + 仪器分析 · 每题附选项讲解<span class="pill">共 <span id="qTotal">0</span> 题</span><span class="pill">已答 <span id="answeredCount">0</span> 题</span><span class="pill" id="wrongPill" style="display:none">📒 错题 <span id="wrongCount">0</span></span></div>
+    </div>
+    <nav class="subject-nav">
+      <a href="index.html">🏠 首页</a>
+      <a href="pharm.html">药理学</a>
+      <a href="organic.html">有机化学</a>
+      <a href="analytical.html" class="active">分析化学</a>
+    </nav>
+  </div>
+</header>
+<div class="wrap">
+
+  <div class="controls" id="controls">
+    <label>章节：
+      <select id="chapSelect"></select>
+    </label>
+    <label>题型：
+      <select id="typeSelect">
+        <option value="all">全部题型</option>
+        <option value="single">单选（A 型）</option>
+        <option value="multi">多选（X 型）</option>
+      </select>
+    </label>
+    <label>进度：
+      <select id="progSelect">
+        <option value="all">全部进度</option>
+        <option value="unanswered">只看未做</option>
+        <option value="answered">只看已做</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="shuffleChk"> 随机</label>
+    <label><input type="checkbox" id="wrongChk"> 📒 只看错题</label>
+    <label title="在错题本中答对后自动移除该题"><input type="checkbox" id="autoRemoveChk" checked> 答对移出错题本</label>
+    <button id="exportBtn" class="btn-ghost">导出进度</button>
+    <button id="importBtn" class="btn-ghost">导入进度</button>
+    <button id="clearWrongBtn" class="btn-ghost btn-danger">清空错题本</button>
+    <button id="restartBtn" class="btn-ghost">重新开始</button>
+    <input type="file" id="importFile" accept=".json,application/json" style="display:none">
+  </div>
+
+  <div class="progress"><div id="progressBar"></div></div>
+
+  <div id="emptyCard" class="card empty" style="display:none"></div>
+
+  <div id="questionCard" class="card">
+    <div class="q-head">
+      <div class="q-meta" id="qMeta"></div>
+      <div class="q-meta" id="qScore"></div>
+    </div>
+    <div class="stem" id="stem"></div>
+    <div id="options"></div>
+    <div class="hint" id="multiHint" style="display:none">（多选题：请选择所有正确答案后提交）</div>
+    <div class="actions" id="actions">
+      <button id="submitBtn" class="btn-primary">提交答案</button>
+      <button id="nextBtn" style="display:none">下一题 →</button>
+    </div>
+    <div class="hint">快捷键：<kbd>A</kbd>–<kbd>E</kbd> 选择选项 · <kbd>Enter</kbd> 提交 / 下一题</div>
+    <div class="wrong-note" id="wrongNote"></div>
+    <div class="explain" id="explain">
+      <div class="verdict" id="verdict"></div>
+      <div class="rationale" id="rationale"></div>
+      <div id="expList"></div>
+    </div>
+  </div>
+
+  <div id="summaryCard" class="card summary">
+    <h2 style="margin-top:0">练习总结</h2>
+    <div class="stat-row">
+      <div class="stat"><div class="n" id="sTotal">0</div><div class="l">本轮题数</div></div>
+      <div class="stat"><div class="n" id="sCorrect">0</div><div class="l">答对</div></div>
+      <div class="stat"><div class="n" id="sWrong">0</div><div class="l">答错</div></div>
+      <div class="stat"><div class="n" id="sRate">0%</div><div class="l">正确率</div></div>
+    </div>
+    <button id="againBtn" class="btn-primary" style="font-size:15px;padding:10px 18px;border-radius:10px;border:none;cursor:pointer">再来一轮</button>
+  </div>
+
+  <div class="foot">依据药学专业《分析化学》教材与考研大纲整理 · 含计算类选择题 · 仅供复习参考<br>进度保存在本机浏览器；用「导出进度」可备份到文件，换设备后用「导入进度」恢复 · <a href="index.html" style="color:var(--brand)">返回首页</a></div>
+</div>
+
+<script src="data/analytical.js"></script>
+
+<script>
+window.QUIZ_CONFIG = {"subject":"分析化学","storageKey":"analytical_progress_v2","dataVar":"ANALYTICAL_DATA","exportName":"分析化学","brand":"#7c3aed","brand2":"#6d28d9"};
+</script>
+<script src="assets/quiz.js"></script>
+</body>
+</html>

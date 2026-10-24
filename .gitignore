@@ -1,0 +1,11 @@
+# Baidu Netdisk temp files
+*.baiduyun.uploading.cfg
+.baiduyun*
+
+# Python
+__pycache__/
+*.pyc
+
+# OS
+.DS_Store
+Thumbs.db
