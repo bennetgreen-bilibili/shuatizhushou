@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>回忆自测 · 考研药学综合</title>
+<link rel="stylesheet" href="assets/quiz.css">
+<link rel="stylesheet" href="assets/recall.css">
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div>
+      <h1>回忆自测</h1>
+      <div class="sub">名词解释 · 填空 · 简答 · 判断<span class="pill">答案默认隐藏</span><span class="pill">点按钮看答案</span></div>
+    </div>
+    <nav class="subject-nav">
+      <a href="index.html">🏠 首页</a>
+      <a href="pharm.html">药理学</a>
+      <a href="organic.html">有机化学</a>
+      <a href="analytical.html">分析化学</a>
+      <a href="concept.html">🧠 概念手册</a>
+      <a href="recall.html" class="active">🎴 回忆自测</a>
+    </nav>
+  </div>
+</header>
+
+<div class="rc-wrap">
+  <div class="rc-hero">
+    <h1>回忆自测（选择题之外）</h1>
+    <p>先自己回忆或在纸上写答案，再点「显示答案与解析」核对——不需要在电脑上打字。名词解释来自概念手册，简答 / 填空 / 判断按章节整理；勾「只看不会」可以集中复习没记住的题。进度按科目保存在本机浏览器。</p>
+  </div>
+
+  <div class="rc-tabs" id="subjectTabs"></div>
+
+  <div class="rc-toolbar">
+    <select id="chapterSel" aria-label="章节筛选"></select>
+    <select id="typeSel" aria-label="题型筛选">
+      <option value="all">全部题型</option>
+      <option value="D">名词解释</option>
+      <option value="F">填空题</option>
+      <option value="S">简答题</option>
+      <option value="T">判断题</option>
+    </select>
+    <label><input type="checkbox" id="unknownChk"> 只看不会</label>
+    <label><input type="checkbox" id="shuffleChk"> 随机</label>
+    <button id="showAllBtn">👀 显示答案与解析</button>
+    <button id="resetBtn">重置本页进度</button>
+    <span class="rc-stats" id="recallStats">—</span>
+  </div>
+
+  <div class="rc-progress"><div id="recallBar"></div></div>
+
+  <main id="recallList"></main>
+
+  <div class="rc-foot">
+    答案与解析依据教材、报考书目与概念手册整理，仅供复习参考 · 进度保存在本机浏览器 ·
+    <a href="concept.html">去概念手册对照原文</a> ·
+    <a href="index.html">返回首页</a>
+  </div>
+</div>
+
+<script src="data/recall-pharm.js"></script>
+<script src="data/recall-organic.js"></script>
+<script src="data/recall-analytical.js"></script>
+<script>
+window.RECALL_CONFIG = {
+  initial: "pharm",
+  subjects: [
+    { id: "pharm", name: "药理学", dataVar: "RECALL_PHARM", key: "recall_pharm_v1", color: "#2563eb", emoji: "💊" },
+    { id: "organic", name: "有机化学", dataVar: "RECALL_ORGANIC", key: "recall_organic_v1", color: "#0f766e", emoji: "🧪" },
+    { id: "analytical", name: "分析化学", dataVar: "RECALL_ANALYTICAL", key: "recall_analytical_v1", color: "#7c3aed", emoji: "⚗️" }
+  ]
+};
+</script>
+<script src="assets/recall.js"></script>
+</body>
+</html>

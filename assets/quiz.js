@@ -131,6 +131,9 @@ function importProgress(file){
 
 /* ============ 刷题逻辑 ============ */
 var state = { list: [], idx: 0, answered: false, selected: {}, correctCount: 0, answeredCount: 0 };
+var EXPLAIN_KEY = "quiz_auto_explain_v1";
+function autoExplain(){ try { return localStorage.getItem(EXPLAIN_KEY) !== "0"; } catch(e){ return true; } }
+function setAutoExplain(v){ try { localStorage.setItem(EXPLAIN_KEY, v ? "1" : "0"); } catch(e){} }
 
 function isMulti(q){ return q.type === "X" || (q.answer && q.answer.length > 1); }
 
@@ -242,6 +245,7 @@ function render(){
   document.getElementById("submitBtn").style.display = "";
   document.getElementById("nextBtn").style.display = "none";
   document.getElementById("explain").classList.remove("show");
+  if(document.getElementById("revealBtn")) document.getElementById("revealBtn").style.display = "none";
   document.getElementById("wrongNote").classList.remove("show");
   if(bar) bar.style.width = Math.round(state.idx/state.list.length*100) + "%";
 }
@@ -310,7 +314,15 @@ function submit(){
     row.innerHTML = '<div class="ek">' + L + '</div><div>' + esc(txt) + '</div>';
     el.appendChild(row);
   });
-  document.getElementById("explain").classList.add("show");
+  var explBox = document.getElementById("explain");
+  var revealBtn = document.getElementById("revealBtn");
+  if(autoExplain()){
+    explBox.classList.add("show");
+    if(revealBtn) revealBtn.style.display = "none";
+  } else {
+    explBox.classList.remove("show");
+    if(revealBtn) revealBtn.style.display = "";
+  }
   document.getElementById("submitBtn").style.display = "none";
   var nb = document.getElementById("nextBtn");
   nb.style.display = "";
@@ -346,6 +358,15 @@ if(document.getElementById("wrongChk")) document.getElementById("wrongChk").onch
 if(document.getElementById("clearWrongBtn")) document.getElementById("clearWrongBtn").onclick = clearWrong;
 if(document.getElementById("restartBtn")) document.getElementById("restartBtn").onclick = buildList;
 if(document.getElementById("submitBtn")) document.getElementById("submitBtn").onclick = submit;
+if(document.getElementById("revealBtn")) document.getElementById("revealBtn").onclick = function(){
+  var e = document.getElementById("explain"); if(e) e.classList.add("show");
+  var b = document.getElementById("revealBtn"); if(b) b.style.display = "none";
+};
+var autoChk = document.getElementById("autoExplainChk");
+if(autoChk){
+  autoChk.checked = autoExplain();
+  autoChk.onchange = function(){ setAutoExplain(autoChk.checked); };
+}
 if(document.getElementById("nextBtn")) document.getElementById("nextBtn").onclick = next;
 if(document.getElementById("againBtn")) document.getElementById("againBtn").onclick = buildList;
 if(document.getElementById("exportBtn")) document.getElementById("exportBtn").onclick = exportProgress;

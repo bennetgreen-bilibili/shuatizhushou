@@ -41,10 +41,10 @@ must(t("total-organic") !== "—" && t("total-organic") !== "", "有机化学总
 must(t("total-analytical") !== "—" && t("total-analytical") !== "", "分析化学总题数: " + t("total-analytical"));
 must(t("grandTotal") !== "—", "首页总题数: " + t("grandTotal"));
 must(String(t("grandChapters")) === "88", "首页章节数: " + t("grandChapters"));
-must(String(t("total-pharm")) === "723", "药理学 723 题: " + t("total-pharm"));
-must(String(t("total-organic")) === "182", "有机化学 182 题: " + t("total-organic"));
-must(String(t("total-analytical")) === "206", "分析化学 206 题: " + t("total-analytical"));
-must(String(t("grandTotal")) === "1111", "总题数 1111: " + t("grandTotal"));
+must(String(t("total-pharm")) === "1077", "药理学 1077 题: " + t("total-pharm"));
+must(String(t("total-organic")) === "272", "有机化学 272 题: " + t("total-organic"));
+must(String(t("total-analytical")) === "305", "分析化学 305 题: " + t("total-analytical"));
+must(String(t("grandTotal")) === "1654", "总题数 1654: " + t("grandTotal"));
 const total = Number(t("total-pharm")) + Number(t("total-organic")) + Number(t("total-analytical"));
 must(total === Number(t("grandTotal")), "各科题数之和 = 总题数 (" + total + ")");
 

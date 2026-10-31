@@ -20,6 +20,7 @@
       <a href="organic.html">有机化学</a>
       <a href="analytical.html">分析化学</a>
       <a href="concept.html">🧠 概念手册</a>
+      <a href="recall.html">🎴 回忆自测</a>
     </nav>
   </div>
 </header>
@@ -50,6 +51,7 @@
     <button id="importBtn" class="btn-ghost">导入进度</button>
     <button id="clearWrongBtn" class="btn-ghost btn-danger">清空错题本</button>
     <button id="restartBtn" class="btn-ghost">重新开始</button>
+    <label title="提交后是否直接展开答案与解析"><input type="checkbox" id="autoExplainChk" checked> 提交后显示解析</label>
     <input type="file" id="importFile" accept=".json,application/json" style="display:none">
   </div>
 
@@ -67,6 +69,7 @@
     <div class="hint" id="multiHint" style="display:none">（多选题：请选择所有正确答案后提交）</div>
     <div class="actions" id="actions">
       <button id="submitBtn" class="btn-primary">提交答案</button>
+      <button id="revealBtn" class="btn-ghost" style="display:none">👀 显示答案与解析</button>
       <button id="nextBtn" style="display:none">下一题 →</button>
     </div>
     <div class="hint">快捷键：<kbd>A</kbd>–<kbd>E</kbd> 选择选项 · <kbd>Enter</kbd> 提交 / 下一题</div>

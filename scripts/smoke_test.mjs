@@ -102,13 +102,13 @@ vm.runInContext(fs.readFileSync("assets/quiz.js", "utf8"), ctx);
 const d = ctx.document;
 const el = id => d.getElementById(id);
 
-must(el("qTotal").textContent === 723, "题总数显示为 723");
+must(el("qTotal").textContent === 1077, "题总数显示为 1077");
 const chapOptions = el("chapSelect")._children;
 must(chapOptions.length === 48, "章节下拉为 47+全部 = 48 项，实际 " + chapOptions.length);
 must(el("stem").textContent.length > 0, "首题题干已渲染: " + el("stem").textContent.slice(0, 20));
 const opts = d.querySelectorAll("#options .opt");
 must(opts.length === 5, "选项渲染 5 个");
-must(el("qMeta").innerHTML.includes("1 / 723"), "进度显示 1 / 723");
+must(el("qMeta").innerHTML.includes("1 / 1077"), "进度显示 1 / 1077");
 
 // 点击 B 选项 → 提交
 opts[1].click();
@@ -120,17 +120,17 @@ must(el("nextBtn").style.display === "", "提交后显示下一题按钮");
 const wasWrong = el("wrongNote").textContent.includes("错题");
 if(wasWrong) must(ctx.localStorage.getItem("pharm_progress_v3").includes("ph01_q01"), "答错写入错题本");
 el("nextBtn").onclick();
-must(el("qMeta").innerHTML.includes("2 / 723"), "下一题后显示 2 / 723");
+must(el("qMeta").innerHTML.includes("2 / 1077"), "下一题后显示 2 / 1077");
 
 // 章节筛选
 el("chapSelect").value = "0";
 el("chapSelect").onchange();
-must(el("qMeta").innerHTML.includes("1 / 4"), "第一章筛选后 4 题");
+must(el("qMeta").innerHTML.includes("1 / 11"), "第一章筛选后 11 题");
 must(el("qScore").textContent.includes("第一章"), "章节名显示正确");
 // 后期章节（第四十五章 抗肿瘤药，索引 44）
 el("chapSelect").value = "44";
 el("chapSelect").onchange();
-must(el("qMeta").innerHTML.includes("1 / 4"), "第四十五章筛选后 4 题");
+must(el("qMeta").innerHTML.includes("1 / 14"), "第四十五章筛选后 14 题");
 must(el("qScore").textContent.includes("第四十五章"), "章节名称显示正确");
 
 // 错题本为空时的空状态，再切回来（回归原版空状态破坏 DOM 的 bug）

@@ -7,7 +7,7 @@
     return window[s.dataVar] && window[s.dataVar].chapters && window[s.dataVar].chapters.length;
   });
 
-  var state = { subject: SUBJECTS[0] || null, q: "", learned: {}, hideLearned: false, hits: {} };
+  var state = { subject: SUBJECTS[0] || null, q: "", learned: {}, hideLearned: false, hits: {}, recite: false };
 
   function $(id) { return document.getElementById(id); }
 
@@ -204,7 +204,10 @@
       '<div class="hb-unit-head">' +
         '<div class="hb-unit-titles"><h2>' + esc(u.title) + '</h2>' +
           (u.summary ? '<p class="hb-summary">' + mark(u.summary, toks) + '</p>' : '') + '</div>' +
-        '<label class="hb-learn"><input type="checkbox" data-learn="' + idx + '"' + (learned ? " checked" : "") + '> 已背完</label>' +
+        '<div class="hb-unit-actions">' +
+          '<a class="hb-test-link" href="recall.html?subject=' + esc(state.subject ? state.subject.id : "pharm") + '&chapter=' + idx + '">🎯 本单元自测</a>' +
+          '<label class="hb-learn"><input type="checkbox" data-learn="' + idx + '"' + (learned ? " checked" : "") + '> 已背完</label>' +
+        '</div>' +
       '</div>' +
       (defs ? '<div class="hb-block hb-defs"><h3>' + esc(defsTitle) + ' <span class="hb-cnt">' + itemsOf(u, "defs").length + ' 条</span></h3><dl>' + defs + '</dl></div>' : '') +
       (points ? '<div class="hb-block hb-points"><h3>' + esc(pointsTitle) + '</h3><ol>' + points + '</ol></div>' : '') +
@@ -216,6 +219,7 @@
   function renderContent() {
     var box = $("content");
     if (!box) return;
+    if (box.classList) box.classList.toggle("recite", !!state.recite);
     var units = unitsOf(state.subject);
     var toks = tokens();
     var html = [];
@@ -245,6 +249,11 @@
       if (attr !== null && attr !== undefined) {
         if (e.preventDefault) e.preventDefault();
         toggleLearned(Number(attr));
+        return;
+      }
+      if (state.recite && t && t.closest) {
+        var item = t.closest(".hb-def, .hb-points li, .hb-notes li");
+        if (item && item.classList) item.classList.toggle("revealed");
       }
     };
     renderSide();
@@ -309,6 +318,7 @@
     SUBJECTS.forEach(function (s) { if (s.id === CFG.initial) initial = s; });
     state.subject = initial || SUBJECTS[0];
     state.learned = loadLearned(state.subject);
+    try { state.recite = localStorage.getItem("handbook_recite_v1") === "1"; } catch (e) {}
     renderTabs();
     renderAll();
 
@@ -321,6 +331,20 @@
     };
     var pr = $("printBtn");
     if (pr) pr.onclick = function () { if (window.print) window.print(); };
+    var rb = $("reciteBtn");
+    if (rb) {
+      var paint = function () {
+        rb.textContent = state.recite ? "🎴 自测模式：开" : "🎴 自测模式";
+        if (rb.classList) rb.classList.toggle("on", !!state.recite);
+      };
+      paint();
+      rb.onclick = function () {
+        state.recite = !state.recite;
+        try { localStorage.setItem("handbook_recite_v1", state.recite ? "1" : "0"); } catch (e) {}
+        paint();
+        renderContent();
+      };
+    }
 
     if (document.addEventListener) {
       document.addEventListener("keydown", function (e) {
@@ -347,6 +371,12 @@
       if (inp) inp.value = state.q;
       renderContent();
     },
+    setRecite: function (v) {
+      state.recite = !!v;
+      try { localStorage.setItem("handbook_recite_v1", state.recite ? "1" : "0"); } catch (e) {}
+      renderContent();
+    },
+    recite: function () { return !!state.recite; },
     setHideLearned: function (v) {
       state.hideLearned = !!v;
       var c = $("hideLearnedChk");

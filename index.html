@@ -19,6 +19,7 @@
       <a href="organic.html">有机化学</a>
       <a href="analytical.html">分析化学</a>
       <a href="concept.html">🧠 概念手册</a>
+      <a href="recall.html">🎴 回忆自测</a>
     </nav>
   </div>
 </header>
@@ -82,6 +83,18 @@
       <div class="mini-bar"><div id="bar-handbook"></div></div>
       <div class="go">开始通读 →</div>
     </a>
+
+    <a class="subject-card" href="recall.html" style="--card-accent:#0d9488">
+      <div class="subject-emoji">🎴</div>
+      <h2>回忆自测</h2>
+      <p class="desc">选择题之外的题型：名词解释 · 填空 · 简答 · 判断。答案与解析默认隐藏，先自己回忆，点按钮再核对；不用在电脑上打字，适合背诵自测与考前回忆。</p>
+      <div class="mini-stats">
+        <div class="mini-stat"><div class="n">4</div><div class="l">种题型</div></div>
+        <div class="mini-stat"><div class="n" id="recall-defs">—</div><div class="l">概念释义</div></div>
+        <div class="mini-stat"><div class="n" id="recall-known">—</div><div class="l">已会</div></div>
+      </div>
+      <div class="go">开始回忆 →</div>
+    </a>
   </div>
 
   <div class="resources">
@@ -90,6 +103,7 @@
       <li><a href="概念手册.docx">概念手册.docx</a> <span class="meta">— Word 打印版，适合打印或平板阅读（自动生成）</span></li>
       <li><a href="概念手册.md">概念手册.md</a> <span class="meta">— Markdown 版，可直接在 GitHub / 手机备忘录阅读</span></li>
       <li><a href="concept.html">概念手册（网页版）</a> <span class="meta">— 概念 / 要点 / 对比表 / 易混提示，可按单元通读、搜索速查</span></li>
+      <li><a href="recall.html">回忆自测（网页版）</a> <span class="meta">— 名词解释 / 填空 / 简答 / 判断，答案与解析一键显示或隐藏</span></li>
       <li><a href="药理学简答题整理.docx">药理学简答题整理.docx</a> <span class="meta">— 简答 / 名词解释 / 填空题（含答案；已系统整理进概念手册）</span></li>
       <li><a href="药理学选择题勘误说明.md">药理学选择题勘误说明.md</a> <span class="meta">— 原题库答案勘误与修正说明</span></li>
       <li><a href="README.md">README.md</a> <span class="meta">— 使用说明、进度备份与部署方法</span></li>
@@ -186,6 +200,15 @@
     }catch(e){}
   });
   setText("grandConcept", hbDefs || "—");
+  setText("recall-defs", hbDefs || "—");
+  var recallKnown = 0;
+  ["recall_pharm_v1", "recall_organic_v1", "recall_analytical_v1"].forEach(function (k) {
+    try {
+      var rp = JSON.parse(localStorage.getItem(k) || "null");
+      if (rp && Array.isArray(rp.known)) recallKnown += rp.known.length;
+    } catch (e) {}
+  });
+  setText("recall-known", recallKnown);
   setText("total-handbook", hbUnits || "—");
   setText("defs-handbook", hbDefs || "—");
   setText("learned-handbook", hbLearned);

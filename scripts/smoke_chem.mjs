@@ -95,6 +95,6 @@ function runCase({ file, dataVar, key, subject, expectedCount, expectedChapters 
   must(el("multiHint").style.display === "", subject + " 多选提示显示");
   must(el("qMeta").innerHTML.includes("X 型"), subject + " 筛选到 X 型题");
 }
-runCase({ file: "data/organic.js", dataVar: "ORGANIC_DATA", key: "organic_progress_v3", subject: "有机化学", expectedCount: 182, expectedChapters: 18 });
-runCase({ file: "data/analytical.js", dataVar: "ANALYTICAL_DATA", key: "analytical_progress_v3", subject: "分析化学", expectedCount: 206, expectedChapters: 23 });
+runCase({ file: "data/organic.js", dataVar: "ORGANIC_DATA", key: "organic_progress_v3", subject: "有机化学", expectedCount: 272, expectedChapters: 18 });
+runCase({ file: "data/analytical.js", dataVar: "ANALYTICAL_DATA", key: "analytical_progress_v3", subject: "分析化学", expectedCount: 305, expectedChapters: 23 });
 process.exit(process.exitCode || 0);

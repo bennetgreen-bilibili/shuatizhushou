@@ -3,6 +3,7 @@
 药理学、有机化学、分析化学三科刷题网页 + 三科概念手册，基于报考院校参考书目与考研大纲整理，可直接在线使用或本地离线打开。
 
 - 三科分页面：**药理学**、**有机化学**、**分析化学**，首页统一入口
+- **回忆自测**：选择题之外还有**名词解释 / 填空 / 简答 / 判断**四种题型，答案与解析默认隐藏，点按钮显示或隐藏；不用在电脑上打字，适合背诵自测（概念手册每个单元有「本单元自测」入口）
 - **概念手册**：按 4 本参考书**逐章对齐**的 **88 个单元 / 1529 条核心概念 / 1211 条要点 / 175 个对比表 / 522 条易混提示**，不是题目，而是按单元整理、可直接背诵与速查的体系化资料，支持搜索、已背标记、打印
 - 每题附 **答案、题干解析，以及每个选项的讲解**
 - 支持按章节 / 题型 / 进度筛选、随机顺序、即时判分、**错题本**、做题进度统计
@@ -32,6 +33,19 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 - 题型包含 A 型单选与 X 型多选；药理学原题库的 B/C 型配对题仍保留。
 - 原「16 章基础 + 7 组高频补充」已拆分并入对应教材章节；原 15/14 章题库也按教材拆分（如"沉淀滴定与重量分析"拆成两章）。
 
+## 回忆自测（选择题之外的题型）
+
+`recall.html` 是独立的背诵自测页：**名词解释 / 填空 / 简答 / 判断**四种题型，按章节组织，答案与解析默认隐藏，点「👀 显示答案与解析」一键显示或隐藏（状态记在本机）；每道题还可以标「✅ 会了 / ❌ 不会」，勾「只看不会」集中复习。名词解释与部分填空题由概念手册自动生成，简答/填空/判断按教材笔记与真题资料整理。
+
+| 科目 | 名词解释 | 填空 | 简答 | 判断 | 合计 |
+| --- | --- | --- | --- | --- | --- |
+| 药理学 | 794 | 132 | 47 | 94 | 1067 |
+| 有机化学 | 325 | 77 | 18 | 36 | 456 |
+| 分析化学 | 392 | 83 | 23 | 46 | 544 |
+| **合计** | **1511** | **292** | **88** | **176** | **2067** |
+
+概念手册每个单元顶部有「🎯 本单元自测」按钮，可直接跳到该章的回忆自测；概念手册工具栏的「🎴 自测模式」会把概念释义、要点、易混提示暂时模糊，点一下才显示，适合先回忆再核对。
+
 ### 2026-10-31 题库升级
 
 结合新增的复习资料（`学习资料/`：药理学笔记与三色笔记、武汉大学《分析化学》试题库与期末卷、有机化学复习总结与试题）做了一轮系统扩容与复核，题量 1111 → **1654**：
@@ -60,11 +74,14 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 
 | 文件 | 用途 |
 | --- | --- |
-| `index.html` | 首页（三科入口、总体进度、概念手册入口、复习资料链接） |
+| `index.html` | 首页（三科入口、总体进度、概念手册 / 回忆自测入口、复习资料链接） |
 | `pharm.html` | 药理学刷题 |
 | `organic.html` | 有机化学刷题 |
 | `analytical.html` | 分析化学刷题 |
-| `concept.html` | 概念手册（三科单元通读、搜索、已背标记、打印） |
+| `concept.html` | 概念手册（三科单元通读、搜索、已背标记、自测模式、打印） |
+| `recall.html` | 回忆自测（名词解释 / 填空 / 简答 / 判断，答案可一键显示隐藏） |
+| `data/recall-pharm.js`、`data/recall-organic.js`、`data/recall-analytical.js` | 回忆自测数据（由分章源文件 + 概念手册构建） |
+| `data/_parts/recall-<科目>/` | 回忆自测的简答/填空/判断题分章源文件（名词解释由概念手册自动生成） |
 | `assets/quiz.css`、`assets/quiz.js` | 全站共享样式与刷题引擎 |
 | `assets/handbook.css`、`assets/handbook.js` | 概念手册样式与渲染引擎 |
 | `data/pharm.js` | 药理学题库（按参考书 47 章重组，含原题库与高频补充） |
@@ -87,6 +104,7 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 3. 答错自动进入错题本；开启「答对移出错题本」后，在错题本中答对会自动移除。
 4. 每轮结束显示本轮题数、答对/答错与正确率，可「再来一轮」。
 5. 进度按科目分别保存在浏览器本地，三科互不影响。
+6. 背诵自测：打开「🎴 回忆自测」页，选科目 / 章节 / 题型；答案与解析默认隐藏，点题目卡上的「👀 显示答案与解析」逐题显示，顶部按钮可全局显示或隐藏。不用打字也能练名词解释、简答、填空、判断，勾「只看不会」可集中复习。
 
 ### 进度备份 / 跨设备恢复
 
@@ -102,6 +120,7 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
 5. 通读完一个单元勾选「已背完」；勾选「隐藏已背完单元」可只看没过的部分。进度按科目保存在本机浏览器（`handbook_<科目>_v2`；因单元按参考书重排，旧版 v1 进度不再兼容）。
 6. 需要打印或离线背：用页面右上「🖨 打印 / 存为 PDF」，或直接打开 `概念手册.docx` / `概念手册.md`。
 7. 快捷键：`/` 聚焦搜索框，`Esc` 清空搜索。
+8. **自测模式**：点工具栏「🎴 自测模式」，概念释义、要点与易混提示会变模糊，先回忆，点一下对应条目再看答案；再点按钮恢复。每个单元标题旁的「🎯 本单元自测」可直接跳到该章的回忆自测。
 
 ## 新增 / 修改题目
 
@@ -133,6 +152,10 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
    python scripts/build_data.py --parts data/_parts/pharm --out data/pharm.js --global PHARM_DATA --id-prefix ph
    python scripts/build_data.py --parts data/_parts/organic --out data/organic.js --global ORGANIC_DATA --id-prefix org
    python scripts/build_data.py --parts data/_parts/analytical --out data/analytical.js --global ANALYTICAL_DATA --id-prefix ana
+   # 回忆自测数据
+   python scripts/build_recall.py --subject pharm --out data/recall-pharm.js --global RECALL_PHARM --id-prefix rph
+   python scripts/build_recall.py --subject organic --out data/recall-organic.js --global RECALL_ORGANIC --id-prefix rgo
+   python scripts/build_recall.py --subject analytical --out data/recall-analytical.js --global RECALL_ANALYTICAL --id-prefix ran
    ```
 
 3. 校验结构、答案、选项讲解、重复题：
@@ -141,6 +164,7 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
    python scripts/validate.py --legacy data/pharm.js          # 药理学保留原文档 B/C 型题与原始表述
    python scripts/validate.py data/organic.js data/analytical.js
    python scripts/check_plan.py
+   python scripts/validate_recall.py data/recall-pharm.js data/recall-organic.js data/recall-analytical.js
    ```
 
    三科分片源文件在 `data/_parts/pharm`、`data/_parts/organic`、`data/_parts/analytical`，每个文件 = 教材一章（47 / 18 / 23 个）。
@@ -151,6 +175,8 @@ https://bennetgreen-bilibili.github.io/shuatizhushou/
    node scripts/smoke_test.mjs      # 药理学页面与引擎
    node scripts/smoke_chem.mjs      # 有机化学 / 分析化学页面
    node scripts/smoke_hub.mjs       # 首页统计
+   node scripts/smoke_handbook.mjs  # 概念手册
+   node scripts/smoke_recall.mjs    # 回忆自测页
    ```
 
 ## 新增 / 修改概念手册

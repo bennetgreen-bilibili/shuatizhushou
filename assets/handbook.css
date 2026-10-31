@@ -117,6 +117,15 @@ mark{background:#fde68a;color:inherit;padding:0 1px;border-radius:3px;box-shadow
   .hb-toolbar input[type=search]{min-width:0;width:100%}
 }
 
+/* ---------- 自测模式 / 单元自测入口 ---------- */
+.hb-toolbar .hb-btn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.hb-unit-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hb-test-link{font-size:13px;font-weight:600;color:var(--brand);text-decoration:none;border:1px solid #c7d2fe;background:#f5f8ff;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.hb-test-link:hover{background:#eef2ff}
+.hb-content.recite .hb-def dd,.hb-content.recite .hb-points li,.hb-content.recite .hb-notes li{filter:blur(6px);cursor:pointer;transition:filter .15s;user-select:none}
+.hb-content.recite .hb-def dd:hover,.hb-content.recite .hb-points li:hover,.hb-content.recite .hb-notes li:hover{filter:blur(3px)}
+.hb-content.recite .hb-def dd.revealed,.hb-content.recite .hb-points li.revealed,.hb-content.recite .hb-notes li.revealed{filter:none;user-select:auto}
+
 /* ---------- 打印 ---------- */
 @media print{
   body{background:#fff}
@@ -133,6 +142,8 @@ mark{background:#fde68a;color:inherit;padding:0 1px;border-radius:3px;box-shadow
   .hb-def{grid-template-columns:120px minmax(0,1fr);break-inside:avoid}
   .hb-points li,.hb-notes li{break-inside:avoid;background:none;border:none;padding-left:0}
   .hb-notes li::before{display:none}
+  .hb-test-link{display:none!important}
+  .hb-content.recite .hb-def dd,.hb-content.recite .hb-points li,.hb-content.recite .hb-notes li{filter:none!important}
   .hb-points li::before{position:static;display:inline-block;margin-right:6px;background:none;color:#111;width:auto;height:auto}
   .hb-table-block table{min-width:0;font-size:11px}
   .hb-table-wrap{overflow:visible}
